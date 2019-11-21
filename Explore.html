@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html class="html-explore">
+
+<head>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Explore</title>
+    <link rel="stylesheet" type="text/css" href="dear_part/CSS/style_Explore.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+    <style>
+        .custom-file-input::-webkit-file-upload-button {
+            visibility: hidden;
+        }
+
+        .custom-file-input::before {
+            content: 'SCAN QR-CODE';
+            display: inline-block;
+            background: #84FFBB;
+            border: 20px solid #84FFBB;
+            border-radius: 3px;
+            padding: 40px 14px;
+            outline: none;
+            white-space: nowrap;
+            -webkit-user-select: none;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 10pt;
+
+        }
+
+        #profileUser {
+            text-align: center;
+
+            border-radius: 20px;
+            padding: 20px 0;
+            margin-bottom: 20px;
+        }
+        a {
+            cursor: pointer;
+        }
+
+        .button3 {
+            display: inline-block;
+            padding: 0.3em 1.5em;
+            margin: 0 0.3em 0.3em 0;
+            border-radius: 2em;
+            box-sizing: border-box;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 12px;
+            color: #FFFFFF;
+            /* background-color: #4eb5f1; */
+            text-align: center;
+            transition: all 0.2s;
+            border: none;
+            background-image: linear-gradient(to right, #FF512F 0%, #DD2476 51%, #FF512F 100%)
+        
+        }
+
+        .button3:hover {
+            border: solid 2px black;;
+            background-position: right center; 
+        }
+
+        @media all and (max-width:30em) {
+            a.button3 {
+                display: block;
+                margin: 0.2em auto;
+            }
+        }
+    </style>
+
+</head>
+
+<body class="body-explore">
+    <!-- <img src="./img/pexels-photo-744789.jpeg" alt="" srcset=""> -->
+
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="#">Profile</a>
+        <a href="loginPage.html">Login</a>
+        <a>Log out</a>
+    </div>
+
+    <div id="main">
+        <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Explore</span>
+    </div>
+
+
+    <div class="menu">
+
+        <div id="profileUser">
+            <p>Hello,</p>
+            <h2 id="userName"></h4>
+                <p id="userEmail">Email:</p>
+                <button class="button3" onclick="handleSignout(event)">Log Out</button>
+        </div>
+        <div class="total">
+            <h3 class="total-save">NOW SAVE</h3>
+            <h3 class="total-save" id="numSave">135</h3>
+        </div>
+
+        <script src="https://rawgit.com/sitepoint-editors/jsqrcode/master/src/qr_packed.js"></script>
+        <div class="row">
+            <div class="col-exp">
+                           <div class='scan' id='scan'>
+                    <input type=file accept="image/*" capture=environment onchange="openQRCamera(this);"
+                        onclick="return showQRIntro();" tabindex=-1 class="custom-file-input">
+                </div>
+
+                <script>
+
+                    function openQRCamera(node) {
+                        var reader = new FileReader();
+                        reader.onload = function () {
+                            node.value = "";
+                            qrcode.callback = function (res) {
+                                if (res instanceof Error) {
+                                    alert("No QR code found. Please make sure the QR code is within the camera's frame and try again.");
+                                } else {
+                                    node.parentNode.previousElementSibling.value = res;
+                                }
+                            };
+                            qrcode.decode(reader.result);
+                        };
+                        reader.readAsDataURL(node.files[0]);
+                        console.log(node.files[0]);
+                    }
+
+                    function showQRIntro() {
+                        return confirm("Use your camera to take a picture of a QR code.");
+
+                    }
+                </script>
+
+
+                <div class="ranking">
+                    <h4>RANKING</h4>
+                    <h4 id="rank">1</h4>
+
+                </div>
+            </div>
+
+            <div class="col-exp">
+                <div class="your-save">
+                    <h4>Your save</h4>
+                    <h2 id="save-pcs">1</h2>
+                </div>
+                <a href="index.html#howto" style="text-decoration:none;color:#145A32">
+                    <div class="ht-use">
+                        <h4>HOW TO USE</h4>
+                    </div>
+                </a>
+            </div>
+
+            <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-app.js"></script>
+            <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-firestore.js"></script>
+            <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-auth.js"></script>
+            <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-analytics.js"></script>
+            <script>
+                // var firebaseConfig = {
+                //     apiKey: "AIzaSyCqxmB8bNARGv7doN0HNr4fE4BZc_Fuj78",
+                //     authDomain: "passtick-login.firebaseapp.com",
+                //     databaseURL: "https://passtick-login.firebaseio.com",
+                //     projectId: "passtick-login",
+                //     storageBucket: "passtick-login.appspot.com",
+                //     messagingSenderId: "55579632020",
+                //     appId: "1:55579632020:web:382031ff847a78ba31af81",
+                //     measurementId: "G-FSSEH86LRB"
+                // };
+
+                // const myFirebase = firebase.initializeApp(firebaseConfig);
+                // let firestore = myFirebase.firestore();
+
+                // function writeData () {
+                //     firestore.collection("store").add({ 
+                //         item: "Nendoroid",
+                //         name: "Hatsune Miku",
+                //         id: 33,
+                //         available: true
+                //     });
+                // }
+                // var YourRNK = document.getElementById();
+                var numSave = document.getElementById('numSave');
+                var YourSave = document.getElementById('save-pcs');
+                var TotalSave = document.getElementById('numSave');
+                var Rnk = document.getElementById('rank');
+                var totalmoney = 0;
+
+                readData();
+                function readData() {
+                    const uid = sessionStorage.getItem('userId')
+                    //const name = sessionStorage.getItem('userName')
+
+                    console.log(uid)
+                    //console.log(name)
+                    if (uid) {
+                        firestore.collection('users').doc(uid).get()
+                        //firestore.collection('users').doc(name).get()
+                            .then((values) => {
+                                const user = values.data();
+                                console.log(user)
+                                // YourSave.innerText = user.money;
+                                // Rnk.innerText = user.rank;
+                                //console.log("username"+ name)
+                                // console.log("user name : "+user.userName)
+                                // console.log("save :" + YourSave);
+                                // console.log("savenow :" + TotalSave);
+                                // console.log("rank :" + Rnk);
+                            })
+                        firestore.collection("SUM").get()
+                            .then((values) => {
+                                values.forEach(element => {
+                                    // numSave = element.data().totalmoney;
+                                    TotalSave.innerText = element.data().totalmoney;
+                                });
+
+
+                            })
+                        }
+                    }
+            </script>
+
+        </div>
+    </div>
+
+
+
+
+    <!-- <div id="main">
+        <span id="title-header" class="header-bar">&#9776;</span>Explore
+    </div>
+
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="#">Profile</a>
+        <a href="#">Invite friend</a>
+        <a href="#">FAQ</a>
+        <a href="#">About Us</a>
+      </div> -->
+    <!-- <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-auth.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-analytics.js"></script>
+    <script>
+        // Your web app's Firebase configuration
+        var FBconfig = {
+            apiKey: "AIzaSyCqxmB8bNARGv7doN0HNr4fE4BZc_Fuj78",
+            authDomain: "passtick-login.firebaseapp.com",
+            databaseURL: "https://passtick-login.firebaseio.com",
+            projectId: "passtick-login",
+            storageBucket: "passtick-login.appspot.com",
+            messagingSenderId: "55579632020",
+            appId: "1:55579632020:web:382031ff847a78ba31af81",
+            measurementId: "G-FSSEH86LRB"
+        };
+        // Initialize Firebase
+        const newfirebase = firebase.initializeApp(FBconfig);
+        // firebase.analytics();
+        console.log(newfirebase)
+    </script> -->
+    <!-- <script src="signup.js"></script> -->
+    <script src="main.js"></script>
+    <script src="userLogin.js"></script>
+    <script src="dear_part/js/script-explore.js"></script>
+</body>
+
+
+
+</html>

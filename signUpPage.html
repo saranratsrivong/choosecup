@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign Up PassTick</title>
+    <!-- <link rel="stylesheet" href="./CSS/signUpStyle.css"> -->
+    <link rel="stylesheet" href="./CSS/logInStyle.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <!--  -->
+    <!--===============================================================================================-->
+    <!-- <link rel="stylesheet" type="text/css" href="./login-test/css/util.css">
+    <link rel="stylesheet" type="text/css" href="./login-test/css/main.css">
+     -->
+    <style>
+        /* Style the buttons */
+        .btn {
+            position: block;
+            font-family: "Montserrat", sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+            background-color: transparent;
+            color: white;
+            float: left;
+            border: none;
+            outline: none;
+            padding: 1em;
+            cursor: pointer;
+            height: 50px;
+            width: 49.5%;
+        }
+
+        /* Style the active class, and buttons on mouse-over */
+        .active,
+        .btn:hover {
+            background-color: white;
+            color: #666;
+            z-index: 66;
+        }
+
+        .center_dt {
+            display: block;
+            text-align: center;
+            background-color: tomato;
+            width: 100%;
+        }
+    </style>
+    <script src="lib/jquery.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#shopSignUp').hide();
+            $('#navbar-maxwidth').hide();
+
+            $('#user').click(function (event) {
+                $('#userSignUp').show();
+                $('#shopSignUp').hide();
+            });
+            $('#shop').click(function (event) {
+                $('#shopSignUp').show();
+                $('#userSignUp').hide();
+            });
+            $('#Navbar__Link-toggle').click(function (event) {
+                $('#navbar-maxwidth').slideToggle("slow");
+
+
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div class="navBar" id="navBar">
+        <img src="./img/head-pic.png" id="headImg">
+        <div id="green">
+            <ul class="navbar-nav" id="navbar-nav">
+                <li class="logIn" id="logIn"><a href="loginPage.html">LOGIN</a></li>
+                <li><a href="#">PROJECTS</a></li>
+                <li><a href="index.html">HOWTO</a></li>
+                <li><a href="index.html">HOME</a></li>
+            </ul>
+            <ul id="navbar-maxwidth">
+                <li><a href="index.html">HOME</a></li>
+                <li><a href="index.html">HOWTO</a></li>
+                <li><a href="#">PROJECTS</a></li>
+                <li id="signupTab"><a href="signUpPage.html">SIGN UP</a></li>
+            </ul>
+            <div class="Navbar__Link-toggle">
+                <i class="fa fa-bars" id="Navbar__Link-toggle"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class="center_ct">   -->
+    <div id="container">
+        <div id="tablink">
+            <!-- <input class="user" id="defaultOpen active" type="submit" value="USER" />
+                <input class="shop" id="defaultOpen" type="submit" value="SHOP" /> -->
+            <button class="btn active" id="user">USER</button>
+            <button class="btn" id="shop">SHOP</button>
+
+        </div>
+        <div id="tabcontent" class="tabcontent">
+            <div id="userSignUp" class="tabUser active">
+                <h1>Sign Up</h1>
+                <p>For collecting your own point and get
+                    higher ranking, please sign up with your user name and password</p>
+                <form>
+                    <input id="userName" type="text" placeholder="User Name" required><br>
+                    <input id="email" type="email" placeholder="Your Email" required><br>
+                    <input id="password" type="password" placeholder="Password" required><br>
+                    <input id="pwConfirm" type="password" placeholder="Confirm Password" required><br>
+                    <input onclick="handleSignUp(event)" id="userSubmit" type="submit" value="SING UP"><br>
+                    <p style="color: red;" id="detect"><a href=""></a></p>
+                </form>
+
+
+
+            </div>
+
+            <div id="shopSignUp">
+                <h1>Sign Up</h1>
+                <!-- <p>For collecting your own point and get
+                        higher ranking, please sign up with your user name and password</p> -->
+
+                <form>
+                    <label>Shop Admin</label><br>
+                    <input id="adminName" type="text" placeholder="User Name" required><br>
+
+                    <input id="email" type="email" placeholder="Your Email" required><br>
+                    <input id="password" type="password" placeholder="Password" required><br>
+                    <input id="pwConfirm" type="password" placeholder="Confirm Password" required><br>
+                    <label>Shop Detail</label><br>
+                    <input id="shopName" type="text" placeholder="Shop Name" required><br>
+                    <input id="fbUrl" type="text" placeholder="FACEBOOK URL" required><br>
+                    <input id="locationURL" type="url" placeholder="Location Link" required><br>
+                    <input onclick="handleSignUp(event)" id="shopSubmit" type="submit" value="SING UP"><br>
+
+                    <a href=""></a>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        var container = document.getElementById("container");
+        var btns = tablink.getElementsByClassName("btn");
+        console.log(btns.length);
+        for (var i = 0; i < btns.length; i++) {
+            btns[i].addEventListener("click", function () {
+                var current = document.getElementsByClassName("active");
+                current[0].className = current[0].className.replace(" active", "");
+                this.className += " active";
+            });
+        }
+    </script>
+    <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+      https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-firestore.js"></script>
+
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyCqxmB8bNARGv7doN0HNr4fE4BZc_Fuj78",
+            authDomain: "passtick-login.firebaseapp.com",
+            databaseURL: "https://passtick-login.firebaseio.com",
+            projectId: "passtick-login",
+            storageBucket: "passtick-login.appspot.com",
+            messagingSenderId: "55579632020",
+            appId: "1:55579632020:web:382031ff847a78ba31af81",
+            measurementId: "G-FSSEH86LRB"
+        };
+        // Initialize Firebase
+        const myFirebase = firebase.initializeApp(firebaseConfig);
+        const db = myFirebase.firestore()
+        // firebase.analytics();
+        console.log(myFirebase)
+    </script>
+    <script src="main.js"></script>
+    <script src="signup.js"></script>
+    
+
+</body>
+
+</html>
